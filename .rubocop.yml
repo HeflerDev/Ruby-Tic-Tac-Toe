@@ -7,8 +7,6 @@ AllCops:
   DisplayCopNames: true
 
 Layout/LineLength:
-<<<<<<< HEAD
-  Max: 120
 =======
   Max: 140
 >>>>>>> ddab613222401067865d1b3041907e09cee52562
