@@ -6,7 +6,18 @@ require '../lib/player.rb'
 require '../lib/board.rb'
 
 def instructions
-  puts 'If you want to stop playing in your turn select 0'
+  puts 'Do you need instructions?Y/N'
+  x = gets.chomp.downcase
+  if x == 'y'
+    puts 'The game consists of a 3x3 board and each player, alternately, play "X" or "O", with the objective of completing a vertical, horizontal or diagonal line. In each turn, the current player choose one of the squares enumerated from 1 to 9, and passes the turn to the next player who has to choose an avaiable square to make it\'s move.
+
+    The game ends in 3 conditions:
+    
+    If the player choose the \'0\' number
+    One of the players make a full line
+    If there is no more avaiable spaces
+    Any invalid value will return invalid and ask the player to type it\'s choice again.'
+  end
 end
 
 def showboard(board)
@@ -37,9 +48,9 @@ end
 
 def play
   instructions
-  puts "Type player one name(The 'X')"
+  puts "\nType player one name(The 'X')"
   player_one = Player.new(gets.chomp.capitalize, 'X')
-  puts "Type player two name(The 'O')"
+  puts "\nType player two name(The 'O')"
   p2_name = gets.chomp.capitalize
   while p2_name == player_one.name
     puts 'Your name is the same as player one, choose another'
