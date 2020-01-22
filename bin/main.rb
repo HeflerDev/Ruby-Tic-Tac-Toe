@@ -18,7 +18,19 @@ def showboard(board)
   puts '╚═══╩═══╩═══╝'
 end
 
+def check_move(play, choice, board)
+  return false if choice == '0'
+
+  choice = choice.to_i
+  if board.board.any? choice
+    board.move(play, choice)
+  else
+    puts 'enter again'
+    check_move(play, gets.chomp, board)
+  end
+end
 instructions
+
 puts "Type player one name(The 'X')"
 player_one = Player.new(gets.chomp.capitalize, 'X')
 puts "Type player two name(The 'O')"
@@ -39,7 +51,7 @@ loop do
     puts "#{player_two.name}, choose a square number"
   end
   choice = gets.chomp
-  break unless board.move(play, choice)
+  break unless check_move(play, choice, board)
   play = !play
   showboard(board)
   winner = board.winner?
