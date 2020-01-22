@@ -11,7 +11,7 @@ def showboard(board)
 end
 
 # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-def winner? (board, winning_lines, player_one_name, player_two_name)
+def winner?(board, winning_lines, player_one_name, player_two_name)
   winning_lines.each do |x|
     if (board[x[0]] == 'X') && (board[x[1]] == 'X') && (board[x[2]] == 'X')
       puts "#{player_one_name} you Win"
@@ -35,6 +35,7 @@ player_two_name = gets.chomp
 puts 'Validating names'
 puts showboard(board)
 play = true
+# rubocop:disable Metrics/BlockLength
 loop do
   if play
     puts "#{player_one_name}, choose a square number"
@@ -46,28 +47,29 @@ loop do
     break
   else
     loop do
-    choice = choice.to_i
-    if board.any? choice
-      if play
-        board[choice - 1] = 'X'
+      choice = choice.to_i
+      if board.any? choice
+        if play
+          board[choice - 1] = 'X'
+        else
+          board[choice - 1] = 'O'
+        end
+        break
       else
-        board[choice - 1] = 'O'
+        puts "Invalid play choose a square number"
+        choice = gets.chomp
       end
-      break
-    else
-      puts "Invalid play choose a square number"
-      choice = gets.chomp
-    end
     end
   end
 
   play = !play
-  puts showboard (board)
+  puts showboard(board)
   break if winner?(board, winning_lines, player_one_name, player_two_name)
 
-  unless board.any? (Integer)
+  unless board.any?(Integer)
     puts 'Draw, nobody wins'
     break
   end
 end
+# rubocop:disable Metrics/BlockLength
 puts 'Game Over, terminating'
