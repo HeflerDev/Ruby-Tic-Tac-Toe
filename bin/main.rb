@@ -35,7 +35,6 @@ player_two_name = gets.chomp
 puts 'Validating names'
 puts showboard(board)
 play = true
-# rubocop:disable Metrics/BlockLength
 loop do
   if play
     puts "#{player_one_name}, choose a square number"
@@ -43,25 +42,20 @@ loop do
     puts "#{player_two_name}, choose a square number"
   end
   choice = gets.chomp
-  if choice == '0'
-    break
-  else
-    loop do
-      choice = choice.to_i
-      if board.any? choice
-        if play
-          board[choice - 1] = 'X'
-        else
-          board[choice - 1] = 'O'
-        end
-        break
-      else
-        puts "Invalid play choose a square number"
-        choice = gets.chomp
-      end
+  loop do
+    choice = choice.to_i
+    if board.any? choice
+      board[choice - 1] = if play
+                            'X'
+                          else
+                            'O'
+                          end
+      break
+    else
+      puts 'Invalid play choose a square number'
+      choice = gets.chomp
     end
   end
-
   play = !play
   puts showboard(board)
   break if winner?(board, winning_lines, player_one_name, player_two_name)
@@ -71,5 +65,5 @@ loop do
     break
   end
 end
-# rubocop:disable Metrics/BlockLength
+# rubocop:enable Metrics/BlockLength
 puts 'Game Over, terminating'
