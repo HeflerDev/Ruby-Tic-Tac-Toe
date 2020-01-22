@@ -9,19 +9,11 @@ class Board
   # rubocop:disable Metrics/CyclomaticComplexity
 
   def move(play, choice)
-    return false if choice == '0'
-
-    choice = choice.to_i
-    if @board.any? choice
-      @board[choice - 1] = if play
-                             'X'
-                           else
-                             'O'
-                           end
-    else
-      puts 'enter again'
-      move(play, gets.chomp)
-    end
+    board[choice - 1] = if play
+                          'X'
+                        else
+                          'O'
+                        end
   end
 
   def winner?
@@ -36,4 +28,4 @@ class Board
     @board.any? Integer
   end
 end
-# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity

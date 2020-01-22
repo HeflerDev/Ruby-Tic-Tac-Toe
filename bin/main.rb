@@ -52,6 +52,7 @@ loop do
   end
   choice = gets.chomp
   break unless check_move(play, choice, board)
+
   play = !play
   showboard(board)
   winner = board.winner?
