@@ -31,9 +31,8 @@ player_two = Player.new(p2_name, 'X')
 board = Board.new
 puts "Hello #{player_one.name} and #{player_two.name} let's start"
 puts showboard(board)
-i = 0
 play = true
-while true
+loop do
   if play
     puts "#{player_one.name}, choose a square number"
   else
@@ -47,14 +46,13 @@ while true
   if winner
     if winner == 'X'
       puts "You're the winner #{player_one.name}"
-      break
     else
       puts "You're The winner #{player_two.name}"
-      break
     end
+    break
   end
   unless board.draw?
-    puts "Game Draw"
+    puts 'Game Draw'
     break
   end
 end
