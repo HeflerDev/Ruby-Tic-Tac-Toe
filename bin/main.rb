@@ -10,20 +10,21 @@ def showboard(board)
   puts '╚═══╩═══╩═══╝'
 end
 
+# rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 def winner? (board, winning_lines, player_one_name, player_two_name)
   winning_lines.each do |x|
     if (board[x[0]] == 'X') && (board[x[1]] == 'X') && (board[x[2]] == 'X')
       puts "#{player_one_name} you Win"
       return true
-    elsif ((board[x[0]] == 'O') && (board[x[1]] == 'O') && (board[x[2]] == 'O'))
+    elsif (board[x[0]] == 'O') && (board[x[1]] == 'O') && (board[x[2]] == 'O')
       puts "#{player_two_name} you Win"
       return true
     end
   end
-  return false
+  false
 end
-
-board = [1,2,3,4,5,6,7,8,9]
+# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 winning_lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]]
 
 puts "Type player one name(The 'X')"
@@ -34,7 +35,7 @@ player_two_name = gets.chomp
 puts 'Validating names'
 puts showboard(board)
 play = true
-while true
+loop do
   if play
     puts "#{player_one_name}, choose a square number"
   else
@@ -44,7 +45,7 @@ while true
   if choice == '0'
     break
   else
-    while true
+    loop do
     choice = choice.to_i
     if board.any? choice
       if play
@@ -55,13 +56,15 @@ while true
       break
     else
       puts "Invalid play choose a square number"
-      choice =  gets.chomp
+      choice = gets.chomp
+    end
     end
   end
-  end
+
   play = !play
   puts showboard (board)
   break if winner?(board, winning_lines, player_one_name, player_two_name)
+
   unless board.any? (Integer)
     puts 'Draw, nobody wins'
     break
