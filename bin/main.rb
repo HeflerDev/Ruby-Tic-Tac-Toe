@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+#!/usr/bin/env ruby
+
 require '../lib/player.rb'
 
 require '../lib/board.rb'
