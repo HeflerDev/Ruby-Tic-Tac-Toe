@@ -1,6 +1,6 @@
 <!-- Project Header -->
 <p align="center">
-  <img src="https://lh3.googleusercontent.com/1RBZ-NQkyniJMRGr2_ryINmxA_xit0gF3q5bINqVd420-EjuMqejsyA4eOaVs2OBE1M_85mE44G5Q7lQ8jP67nYJeqWWy-TZ5gHkyb2V9G5o0eJywgu76EQ78aFCpScLz2P6cjGsIw " alt="tic tac toe logo" height="150" >
+  <img src="https://lh3.googleusercontent.com/1RBZ-NQkyniJMRGr2_ryINmxA_xit0gF3q5bINqVd420-EjuMqejsyA4eOaVs2OBE1M_85mE44G5Q7lQ8jP67nYJeqWWy-TZ5gHkyb2V9G5o0eJywgu76EQ78aFCpScLz2P6cjGsIw" alt="tic tac toe logo" height="150" >
   <br>
   <h2 align="center">Ruby Section</h2>
   <h3 align="center">3rd Project. Tic Tac Toe</h3>
