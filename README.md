@@ -43,7 +43,7 @@ For more details about this project and it's requeriments go to <a href="https:/
 
 ## How to Play
 
-# Rules
+### Rules
 
 The game consists of a 3x3 board and each player, alternately, play "X" or "O", with the objective of completing a vertical, horizontal or diagonal line.
 In each turn, the current player choose one of the squares enumerated from 1 to 9, and passes the turn to the next player who has to choose an avaiable square to make it's move.
@@ -55,7 +55,7 @@ The game ends in 3 conditions:
 
  Any invalid value will return invalid and ask the player to type it's choice again.
 
-# Executing
+### Executing
 
 To execute the file, if it is on the 'Downloads' open the terminal (ctrl+alt+t) and paste using (ctrl + v) the next two lines :
 
