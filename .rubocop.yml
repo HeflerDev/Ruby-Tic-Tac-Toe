@@ -7,9 +7,7 @@ AllCops:
   DisplayCopNames: true
 
 Layout/LineLength:
-=======
-  Max: 140
->>>>>>> ddab613222401067865d1b3041907e09cee52562
+  Max: 120
 Metrics/MethodLength:
   Max: 20
 Metrics/AbcSize:
@@ -40,8 +38,4 @@ Layout/ExtraSpacing:
   AllowForAlignment: false
 Layout/MultilineMethodCallIndentation:
   Enabled: true
-<<<<<<< HEAD
   EnforcedStyle: indented
-=======
-  EnforcedStyle: indented
->>>>>>> ddab613222401067865d1b3041907e09cee52562
