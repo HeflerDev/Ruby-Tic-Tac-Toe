@@ -2,55 +2,61 @@
 
 require '../lib/player.rb'
 
-player1 = Player.new("Rey","X")
-puts player1.name
+require '../lib/board.rb'
 
-=begin
+def instructions
+  puts 'If you want to stop playing in your turn select 0'
+end
+
+def showboard(board)
+  puts '╔═══╦═══╦═══╗'
+  puts "║ #{board.board[0]} ║ #{board.board[1]} ║ #{board.board[2]} ║"
+  puts '╠═══╬═══╬═══╣'
+  puts "║ #{board.board[3]} ║ #{board.board[4]} ║ #{board.board[5]} ║"
+  puts '╠═══╬═══╬═══╣'
+  puts "║ #{board.board[6]} ║ #{board.board[7]} ║ #{board.board[8]} ║"
+  puts '╚═══╩═══╩═══╝'
+end
+
+instructions
 puts "Type player one name(The 'X')"
-player_one_name = gets.chomp
-
+player_one = Player.new(gets.chomp.capitalize, 'X')
 puts "Type player two name(The 'O')"
-player_two_name = gets.chomp
-
-puts 'Validating names'
-
-puts '╔═══╦═══╦═══╗'
-puts '║ 1 ║ 2 ║ 3 ║'
-puts '╠═══╬═══╬═══╣'
-puts '║ 4 ║ 5 ║ 6 ║'
-puts '╠═══╬═══╬═══╣'
-puts '║ 7 ║ 8 ║ 9 ║'
-puts '╚═══╩═══╩═══╝'
-
+p2_name = gets.chomp.capitalize
+while p2_name == player_one.name
+  puts 'Your name is the same as player one, choose another'
+  p2_name = gets.chomp.capitalize
+end
+player_two = Player.new(p2_name, 'X')
+board = Board.new
+puts "Hello #{player_one.name} and #{player_two.name} let's start"
+puts showboard(board)
 i = 0
 play = true
-winner = false
-draw = false
-
-while i < 9
+while true
   if play
-    puts "#{player_one_name}, choose a square number"
+    puts "#{player_one.name}, choose a square number"
   else
-    puts "#{player_two_name}, choose a square number"
+    puts "#{player_two.name}, choose a square number"
   end
   choice = gets.chomp
-  puts "Validating #{choice}"
-  i += 1
+  break unless board.move(play, choice)
   play = !play
-  puts 'The move is displayed on the board'
-
+  showboard(board)
+  winner = board.winner?
   if winner
-    puts "#{player_one_name} is the winner!"
-    break
+    if winner == 'X'
+      puts "You're the winner #{player_one.name}"
+      break
+    else
+      puts "You're The winner #{player_two.name}"
+      break
+    end
   end
-  if winner
-    puts "#{player_two_name} is the winner!"
-    break
-  end
-  if draw
-    puts 'Draw, nobody wins'
+  unless board.draw?
+    puts "Game Draw"
     break
   end
 end
+
 puts 'Game Over, terminating'
-=end
