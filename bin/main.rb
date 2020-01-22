@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+require '../lib/player.rb'
+
+player1 = Player.new("Rey","X")
+puts player1.name
+
+=begin
 puts "Type player one name(The 'X')"
 player_one_name = gets.chomp
 
@@ -47,3 +53,4 @@ while i < 9
   end
 end
 puts 'Game Over, terminating'
+=end
