@@ -1,68 +1,89 @@
 #!/usr/bin/env ruby
 
+# rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/LineLength
+require '../lib/player.rb'
+
+require '../lib/board.rb'
+
+def instructions
+  puts 'Do you need instructions?Y/N'
+  x = gets.chomp.downcase
+  puts 'The game consists of a 3x3 board and each player, alternately, play "X" or "O", with the objective of completing a vertical, horizontal or diagonal line. In each turn, the current player choose one of the squares enumerated from 1 to 9, and passes the turn to the next player who has to choose an avaiable square to make it\'s move.' if x == 'y'
+end
+
 def showboard(board)
   puts '╔═══╦═══╦═══╗'
-  puts "║ #{board[0]} ║ #{board[1]} ║ #{board[2]} ║"
+  puts "║ #{board.board[0]} ║ #{board.board[1]} ║ #{board.board[2]} ║"
   puts '╠═══╬═══╬═══╣'
-  puts "║ #{board[3]} ║ #{board[4]} ║ #{board[5]} ║"
+  puts "║ #{board.board[3]} ║ #{board.board[4]} ║ #{board.board[5]} ║"
   puts '╠═══╬═══╬═══╣'
-  puts "║ #{board[6]} ║ #{board[7]} ║ #{board[8]} ║"
+  puts "║ #{board.board[6]} ║ #{board.board[7]} ║ #{board.board[8]} ║"
   puts '╚═══╩═══╩═══╝'
 end
 
-# rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-def winner?(board, winning_lines, player_one_name, player_two_name)
-  winning_lines.each do |x|
-    if (board[x[0]] == 'X') && (board[x[1]] == 'X') && (board[x[2]] == 'X')
-      puts "#{player_one_name} you Win"
-      return true
-    elsif (board[x[0]] == 'O') && (board[x[1]] == 'O') && (board[x[2]] == 'O')
-      puts "#{player_two_name} you Win"
-      return true
-    end
-  end
-  false
+def clear_screen
+  system('clear')
 end
-# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-winning_lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]]
 
-puts "Type player one name(The 'X')"
-player_one_name = gets.chomp
+def check_move(play, choice, board)
+  return false if choice == '0'
 
-puts "Type player two name(The 'O')"
-player_two_name = gets.chomp
-puts 'Validating names'
-puts showboard(board)
-play = true
-loop do
-  if play
-    puts "#{player_one_name}, choose a square number"
+  choice = choice.to_i
+  if board.board.any? choice
+    board.move(play, choice)
   else
-    puts "#{player_two_name}, choose a square number"
-  end
-  choice = gets.chomp
-  loop do
-    choice = choice.to_i
-    if board.any? choice
-      board[choice - 1] = if play
-                            'X'
-                          else
-                            'O'
-                          end
-      break
-    else
-      puts 'Invalid play choose a square number'
-      choice = gets.chomp
-    end
-  end
-  play = !play
-  puts showboard(board)
-  break if winner?(board, winning_lines, player_one_name, player_two_name)
-
-  unless board.any?(Integer)
-    puts 'Draw, nobody wins'
-    break
+    puts 'enter again'
+    check_move(play, gets.chomp, board)
   end
 end
-puts 'Game Over, terminating'
+
+def play
+  instructions
+  puts "\nType player one name(The 'X')"
+  player_one = Player.new(gets.chomp.capitalize, 'X')
+  puts "\nType player two name(The 'O')"
+  p2_name = gets.chomp.capitalize
+  while p2_name == player_one.name
+    puts 'Your name is the same as player one, choose another'
+    p2_name = gets.chomp.capitalize
+  end
+  player_two = Player.new(p2_name, 'X')
+  board = Board.new
+  puts "Hello #{player_one.name} and #{player_two.name} let's start"
+  puts showboard(board)
+  play = true
+  loop do
+    if play
+      puts "#{player_one.name}, choose a square number"
+    else
+      puts "#{player_two.name}, choose a square number"
+    end
+    choice = gets.chomp
+    break unless check_move(play, choice, board)
+
+    play = !play
+    clear_screen
+    showboard(board)
+    winner = board.winner?
+    if winner
+      if winner == 'X'
+        puts "You're the winner #{player_one.name}"
+      else
+        puts "You're The winner #{player_two.name}"
+      end
+      break
+    end
+    unless board.draw?
+      puts 'Game Draw'
+      break
+    end
+  end
+end
+loop do
+  play
+  puts 'Game Over, terminating'
+  puts 'Play Again?Y/N'
+  pa = gets.chomp.downcase
+  break if pa != 'y'
+end
+# rubocop:enable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/LineLength
