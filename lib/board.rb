@@ -1,5 +1,5 @@
 class Board
-  attr_reader :board
+  attr_accessor :board
   attr_reader :winning_lines
 
   public def initialize

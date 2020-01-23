@@ -14,10 +14,18 @@ RSpec.describe Board do
       expect(board.draw?).to be(true)
     end
 
-    it 'returns false if draw is invalid' do
+    it 'returns false if draw doesn\'t has any integer' do
       board = Board.new
-      expect(board.draw?).to_not be(false)
+      board.board = ['O', 'X', 'O', 'X', 'X', 'O', 'X', 'O', 'X']
+      expect(board.draw?).to eql(false)
     end
+
+    it 'returns true if draw has any integer' do
+      board = Board.new
+      board.board = ['O', 2, 'O', 'X', 'X', 'O', 'X', 'O', 'X']
+      expect(board.draw?).to eql(true)
+    end
+
   end
 
   describe "#move" do
