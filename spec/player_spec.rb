@@ -1,4 +1,4 @@
-require './lib/player'
+require_relative '../lib/player'
 
 # Check if the input name is a string
 RSpec.describe Player do

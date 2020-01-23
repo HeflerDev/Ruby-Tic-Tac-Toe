@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/LineLength
-require '../lib/player.rb'
+require_relative '../lib/player.rb'
 
-require '../lib/board.rb'
+require_relative '../lib/board.rb'
 
 def instructions
   puts 'Do you need instructions?Y/N'
